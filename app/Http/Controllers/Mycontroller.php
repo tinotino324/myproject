@@ -239,7 +239,7 @@ class Mycontroller extends Controller
             }
         }
         
-        $total_authors_list = array_slice($top_author_list, 0, 5);
+        $total_authors_list = array_slice($top_author_list, 0, 4);
 
         $authors_names      = !empty($data) ? '<b>(Total-'.count($data).')</b><br>'.implode('<br>', array_column($data, "names")) : '';
         $book_names         = !empty($book_data) ? '<b>(Total-'.count($book_data).')</b><br>'.implode('<br>', array_column($book_data, "book_name")) : '';
