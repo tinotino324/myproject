@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="mb-3 text-center">Welcome to the AuthorBook Management App new</h1>
+    <h1 class="mb-3 text-center">Welcome to the AuthorBook Management App</h1>
     <p class="lead text-center mb-5">Manage authors and their books easily. Get quick insights at a glance!</p>
     <div class="row justify-content-center">
         <!-- Authors Card -->
