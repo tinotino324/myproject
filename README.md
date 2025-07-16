@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Open your browser and visit:
 
 http://127.0.0.1:8000/index
@@ -19,6 +20,8 @@ A simple Laravel project for managing books and authors with a modern, clean das
 
 🗂️ Project Structure
 
+=======
+>>>>>>> 354ae9adec9aa30ec5a91d9e27f3424606b9ca8c
 # 📚 Laravel AuthorBook Management Application
 
 This Laravel application is designed to manage **Authors** and their **Books**, supporting full CRUD functionality and an integrated chatbot for real-time data querying.
@@ -53,7 +56,10 @@ This application allows users to:
 
 ## 🛠️ Installation & Setup Instructions
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 354ae9adec9aa30ec5a91d9e27f3424606b9ca8c
 1. **Clone the repository:**
 
    ```bash
@@ -63,6 +69,7 @@ This application allows users to:
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<<<<<<< HEAD
 
 
 app/
@@ -102,3 +109,5 @@ public/
 Command :
 1. php artisan serve
 2. php artisan migrate:fresh
+=======
+>>>>>>> 354ae9adec9aa30ec5a91d9e27f3424606b9ca8c
