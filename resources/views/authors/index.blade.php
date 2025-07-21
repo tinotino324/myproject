@@ -280,7 +280,16 @@
                     }
                     else
                     {
-                        showToast(result.message, 'error');
+                        if(result.message != '')
+                        {
+                            $("#author_nameDiv").addClass('has-error');
+                            $("#auther_name_error").text(result.message);
+                        }
+                        else
+                        {
+                            $("#author_nameDiv").removeClass('has-error');
+                            $("#auther_name_error").text("");
+                        }
                     }
                 }
             });

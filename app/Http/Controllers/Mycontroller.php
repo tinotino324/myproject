@@ -55,6 +55,24 @@ class Mycontroller extends Controller
         $name               = $request->post('name');
         $id                 = $request->post('id');
         $Model              = new Author();
+        $authors_names      = $Model->getAuthors(['names' => $name]);
+        $authors            = [];
+
+        
+        if(!empty($authors_names))
+        {
+            foreach($authors_names as $authors_name)
+            {
+                $authors[]  = $authors_name;
+            }
+
+            if(!empty($authors))
+            {
+                $response['message'] = "This Author Name is already exist !";
+                $response['status']  = FALSE;
+                echo json_encode($response);die;
+            }
+        }
 
         if((int)$id)
         {
