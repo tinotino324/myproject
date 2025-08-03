@@ -40,17 +40,16 @@ class Author extends Model
 
     public function getAuthors_listing($filters = [])
     {
-        $offset = isset($filters['offset']) ? $filters['offset'] : 0 ;
-        $length = isset($filters['length']) ? $filters['length'] : 10 ;
-        unset($filters['offset'], $filters['length']);
+        $offset     = isset($filters['offset']) ? $filters['offset'] : 0 ;
+        $length     = isset($filters['length']) ? $filters['length'] : 10 ;
+        $keyword    = isset($filters['keyword']) ? $filters['keyword'] : '';
         $query = self::query();
 
-        // $query->leftjoin('book_names', 'book_names.authorID', '=' , 'author_names.authorID');
-
-        if (!empty($filters)) {
-            $query->where($filters);
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where("names", 'like', '%' . $keyword . '%');
+            });
         }
-
         $query->skip($offset)->take($length);
         $query->orderBy('authorID', 'DESC');
         return $query->get();

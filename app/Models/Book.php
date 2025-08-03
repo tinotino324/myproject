@@ -33,25 +33,27 @@ class Book extends Model
             $query->where($filters);
         }
         
-        $query->orderby('bookID', 'DESC');
+        $query->orderBy('bookID', 'DESC');
         return $query->get();
     }
 
     public function getbooks_listing($filters = [])
     {
-        $offset = isset($filters['offset']) ? $filters['offset'] : 0;
-        $limit  = isset($filters['limit']) ? $filters['limit'] : 10;
-        unset($filters['offset'], $filters['limit']);
-
-        $query  = self::query();
+        $offset     = isset($filters['offset']) ? $filters['offset'] : 0;
+        $limit      = isset($filters['limit']) ? $filters['limit'] : 10;
+        $keyword    = isset($filters['keyword']) ? $filters['keyword'] : '';
+        $query      = self::query();
         $query->leftJoin('author_names', 'author_names.authorID', '=', 'book_names.authorID');
 
-        if (!empty($filters)) {
-            $query->where($filters);
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where("book_name", 'like', '%' . $keyword . '%')
+                  ->orWhere("author_names.names", 'like', '%' . $keyword . '%');
+            });
         }
-        
+
         $query->skip($offset)->take($limit);
-        $query->orderby('bookID', 'DESC');
+        $query->orderBy('bookID', 'DESC');
         return $query->get();
     }
 

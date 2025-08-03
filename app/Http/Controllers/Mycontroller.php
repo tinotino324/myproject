@@ -9,7 +9,6 @@ use App\Models\Book;
 
 class Mycontroller extends Controller
 {
-   
     public function index()
     {
         $Model                  = New Author();
@@ -58,14 +57,13 @@ class Mycontroller extends Controller
         $authors_names      = $Model->getAuthors(['names' => $name]);
         $authors            = [];
 
-        
         if(!empty($authors_names))
         {
             foreach($authors_names as $authors_name)
             {
                 $authors[]  = $authors_name;
             }
-
+            
             if(!empty($authors))
             {
                 $response['message'] = "This Author Name is already exist !";
@@ -106,6 +104,23 @@ class Mycontroller extends Controller
         $authorID           = $request->post('authorID');
         $id                 = $request->post('id');
         $Model              = new Book();
+        $books_names        = $Model->getBooks(['book_name' => $name]);
+        $books              = [];
+
+        if(!empty($books_names))
+        {
+            foreach($books_names as $book_name)
+            {
+                $books[]  = $book_name;
+            }
+            
+            if(!empty($books))
+            {
+                $response['message'] = "This Bool Name is already exist !";
+                $response['status']  = FALSE;
+                echo json_encode($response);die;
+            }
+        }
 
         if((int)$id)
         {
@@ -136,10 +151,12 @@ class Mycontroller extends Controller
 
         $offset             = $request->post('offset');
         $length             = $request->post('length');
+        $keyword            = $request->post('keyword');
         $Model              = new Author();
         $bookModel          = new book();
         $params['offset']   = $offset;
         $params['length']   = $length;
+        $params['keyword']  = $keyword;
         $authors            = $Model->getAuthors_listing($params);
         $total_authors      = $Model->getAuthors();
         $books              = $bookModel->getbooks();
@@ -199,10 +216,12 @@ class Mycontroller extends Controller
     {
         $offset             = $request->post('offset');
         $length             = $request->post('length');
+        $keyword            = $request->post('keyword');
         $Model              = new book();
         $total_books        = $Model->getbooks();
         $params['offset']   = $offset;
-        $params['limit']    = $length;    
+        $params['limit']    = $length;  
+        $params['keyword']  = $keyword;    
         $books              = $Model->getbooks_listing($params);
         $data               = [];
 

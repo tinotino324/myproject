@@ -10,7 +10,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('author_names')) {
             Schema::create('author_names', function (Blueprint $table) {
-                $table->integer('authorID')->primary();
+                $table->increments('authorID')->primary();
                 $table->string('names', 250);
                 $table->timestamps();
             });
@@ -18,7 +18,7 @@ return new class extends Migration
     
         if (!Schema::hasTable('book_names')) {
             Schema::create('book_names', function (Blueprint $table) {
-                $table->integer('bookID')->primary();
+                $table->increments('bookID')->primary();
                 $table->integer('authorID');
                 $table->string('book_name', 250);
                 $table->timestamps();

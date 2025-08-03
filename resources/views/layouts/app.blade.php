@@ -8,9 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     @stack('styles')
     <style>
-        body {
-            display: block; /* not flex! */
+       
+        html, body {
+            height: 100%;
             margin: 0;
+            overflow: hidden; /* Prevent body scroll */
         }
 
         .d-flex {
@@ -18,16 +20,20 @@
         }
 
         .sidebar {
-            width: 250px;
+            width: 250px; /* Adjust sidebar width */
+            background: #343a40; /* Optional */
+            color: white;
             height: 100vh;
-            background-color: #343a40;
+            overflow-y: auto;
             padding: 1rem;
         }
 
         .content {
             flex-grow: 1;
+            overflow-y: auto; /* Allow internal scroll if content is large */
             padding: 2rem;
-        }   
+            height: 100vh;
+        }
 
         .sidebar a {
             color: #fff;
@@ -39,10 +45,7 @@
         .sidebar a:hover {
             background-color: #495057;
         }
-        .content {
-            flex-grow: 1;
-            padding: 2rem;
-        }
+
         .has-error input{
             border: 1px solid var(--bs-red) !important;
         }
@@ -156,6 +159,30 @@
             top: 0;
         }
 
+        .full-screen {
+            height: 100vh; /* 100% of the viewport height */
+        }
+        #profile-header-adjustement {
+            min-width: 30px;
+            max-width: 30px;
+            min-height: 30px;
+            max-height: 30px;
+            background-color: #5119B7;
+            border-radius: 50%;
+            position: relative;
+        }
+        #profile-header-firstletter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 17px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+
     </style>
 </head>
 <body>
@@ -163,7 +190,8 @@
 
     <div class="d-flex">
         @include('layouts.sidebar')
-        <div class="content">
+        
+        <div class="content full-screen">
             @yield('content')
             <input type="hidden" value="10" id="lengthSelect">
         </div>
