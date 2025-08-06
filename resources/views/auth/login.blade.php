@@ -5,19 +5,24 @@
     <title>Login</title>
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .has-error input{
+            border: 1px solid var(--bs-red) !important;
+        }
+    </style>
 </head>
 <body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
 
     <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
         <h3 class="text-center mb-4">Login</h3>
         <div class="alert alert-danger d-none" id="errorMsg"></div>
-        <div class="mb-3">
+        <div class='form-group col-lg-12 mb-3' id='emailDiv'>
             <label for="email" class="form-label">Email address</label>
             <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required autofocus>
             <span class="control-label text-danger" id="email_err">
         </div>
 
-        <div class="mb-3">
+        <div class='form-group col-lg-12 mb-3' id='passwordDiv'>
             <label for="password" class="form-label">Password</label>
             <input type="password" name="password" id="password" class="form-control" required>
             <span class="control-label text-danger" id="password_err">
@@ -81,6 +86,8 @@
 
                             $('#email_err').text(mailErrMsg);
                             $('#password_err').text(passwordErrMsg);
+                            (mailErrMsg != '' )? $("#emailDiv").addClass("has-error") : $("#emailDiv").removeClass("has-error");
+                            (passwordErrMsg != '') ? $("#passwordDiv").addClass("has-error") : $("#passwordDiv").removeClass("has-error");
                         }
                         else
                         {
@@ -88,6 +95,8 @@
                             $("#errorMsg").html(result.errors);
                             $('#email_err').text("");
                             $('#password_err').text("");
+                            $("#emailDiv").removeClass("has-error");
+                            $("#passwordDiv").removeClass("has-error");
                         }
                     }
                 }

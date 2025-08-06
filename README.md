@@ -101,3 +101,7 @@ public/
 Command :
 1. php artisan serve
 2. php artisan migrate:fresh
+
+Login Credential:
+Email: tinolinjeba@gmail.com
+Password: 12345678

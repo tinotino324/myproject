@@ -44,12 +44,7 @@
     </div>
     <!-- Bottom Fixed Button for Mobile -->
     <div class="fixedBottomBtnWrapper w-100 bg-white z-2 position-fixed bottom-0 start-0 p-3 d-block d-md-none">
-        <a class="btn btn-primary btn-sm btn-w-icon fullWidthMbl"
-        href="Javascript:void(0);"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasAddClass"
-        aria-controls="offcanvasAddClass">
+        <a class="btn btn-primary btn-sm btn-w-icon fullWidthMbl" href="Javascript:void(0);" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddClass" aria-controls="offcanvasAddClass">
             Add Author
         </a>
     </div>

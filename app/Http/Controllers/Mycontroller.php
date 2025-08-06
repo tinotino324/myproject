@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Name;
 use App\Models\Author;
 use App\Models\Book;
+use Illuminate\Support\Facades\Validator;
 
 class Mycontroller extends Controller
 {
@@ -79,7 +80,6 @@ class Mycontroller extends Controller
         else
         {
             $update         = $Model->insertAuthor(['names' => $name]);
-
         }
 
         if($update)

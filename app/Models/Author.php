@@ -43,7 +43,7 @@ class Author extends Model
         $offset     = isset($filters['offset']) ? $filters['offset'] : 0 ;
         $length     = isset($filters['length']) ? $filters['length'] : 10 ;
         $keyword    = isset($filters['keyword']) ? $filters['keyword'] : '';
-        $query = self::query();
+        $query      = self::query();
 
         if (!empty($keyword)) {
             $query->where(function ($q) use ($keyword) {

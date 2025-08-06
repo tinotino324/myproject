@@ -46,6 +46,9 @@ class Book extends Model
         $query->leftJoin('author_names', 'author_names.authorID', '=', 'book_names.authorID');
 
         if (!empty($keyword)) {
+            // ->where('column_name', 'like', '%value%')
+            // $keyword_query = "(sims_asset_category.category LIKE \"%". $keyword ."%\" OR sims_location.location LIKE \"%". $keyword ."%\" OR item_name LIKE \"%". $keyword ."%\"OR building_information LIKE \"%". $keyword ."%\")";
+
             $query->where(function ($q) use ($keyword) {
                 $q->where("book_name", 'like', '%' . $keyword . '%')
                   ->orWhere("author_names.names", 'like', '%' . $keyword . '%');
