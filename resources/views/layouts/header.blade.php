@@ -31,8 +31,9 @@
                 </div>
 
                 <div id="profileDropdown" class="dropdown-menu shadow p-3 mt-2" style="display: none; min-width: 200px; left: auto; right: 0; transform: translateX(-20px);">
-                    <div class="mb-2">
-                        <strong>{{ucfirst(session('user_name'))}}</strong><br>
+                    <div class="mb-3">
+                        <strong>{{ucfirst(session('user_name'))}}</strong> <span class="badge"><strong>{{ (session('usertype') == 1) ? 'Admin' : 'User' }}</strong></span>
+                        <br>
                         <small class="text-muted">{{session('user_email')}}</small>
                     </div>
                     <hr>

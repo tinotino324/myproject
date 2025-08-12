@@ -15,9 +15,10 @@ return new class extends Migration
             'name' => 'Tinolin Jeba',
             'email' => 'tinolinjeba@gmail.com',
             'password' => Hash::make('12345678'),
+            'usertype' => 1,
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+        ]);  
     }
 
     /**
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        
     }
 };

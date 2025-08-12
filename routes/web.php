@@ -17,7 +17,9 @@ Route::get('/author', [Mycontroller::class, 'author'])->middleware('auth');
 Route::get('/books', [Mycontroller::class, 'books'])->middleware('auth');
 Route::get('/chatbot', [Mycontroller::class, 'chatbot'])->middleware('auth');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/register', [LoginController::class, 'registerForm'])->name('register');
 
+Route::post('/create_user', [LoginController::class, 'create_user'])->name('create_user');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/login_check', [LoginController::class, 'login_check'])->name('login_check');
 Route::post('/save', [Mycontroller::class, 'save'])->name('save');

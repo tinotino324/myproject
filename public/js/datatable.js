@@ -46,6 +46,6 @@ function datatable(data, result, page_no, columns, method)
                 </div>
             </div>
             `;
-
+           
     return html;        
 }

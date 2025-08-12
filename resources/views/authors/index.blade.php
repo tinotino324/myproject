@@ -273,7 +273,10 @@
                         canvas('offcanvasAddClass', 'hide');
                         showToast(result.message);
                         $("#auther_name").val("");
+                        $("#author_nameDiv").removeClass('has-error');
+                        $("#auther_name_error").text("");
                         get_authors();
+
                     }
                     else
                     {

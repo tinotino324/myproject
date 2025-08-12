@@ -58,6 +58,19 @@ class Mycontroller extends Controller
         $authors_names      = $Model->getAuthors(['names' => $name]);
         $authors            = [];
 
+        $validator  = Validator::make($request->all(),[
+            "name" => "required||max:20"
+        ]);
+
+        if($validator->fails())
+        {
+            $errors                 = $validator->errors();
+            // $errors->all();
+            $response['message']    = $errors->getMessages()['name'][0];
+            $response['status']     = FALSE;   
+            echo json_encode($response);die;
+        }
+        
         if(!empty($authors_names))
         {
             foreach($authors_names as $authors_name)

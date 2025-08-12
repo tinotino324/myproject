@@ -18,11 +18,13 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
+
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,15 +49,16 @@ class User extends Authenticatable
         ];
     }
 
-    public function user_insert()
+    public function user_insert($data = [])
     {
-        $data = [
-            'name' => 'Tinolin Jeba',
-            'email' => 'tinolinjeba@gmail.com',
-            'password' => Hash::make('12345678'), // ✅ properly hashed
-        ];
+        $insert = false;
 
-        self::create($data);
+        if(!empty($data))
+        {
+            $insert =  self::create($data);
+        }
+        
+        return $insert;
         // echo dd($query->toSql()); die;
     }
 }

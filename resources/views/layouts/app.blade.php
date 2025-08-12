@@ -181,8 +181,14 @@
             text-transform: uppercase;
             font-weight: bold;
         }
-
-
+        .badge {
+            display: inline-block;
+            padding: 4px 5px;
+            font-weight: normal;
+            font-size: 85%;
+            margin-top: 5px;
+            background-color: #5119B7;
+        }
     </style>
 </head>
 <body>

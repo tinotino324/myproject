@@ -1,15 +1,8 @@
+@include('layouts.LR_form')
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .has-error input{
-            border: 1px solid var(--bs-red) !important;
-        }
-    </style>
 </head>
 <body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
 
@@ -31,12 +24,13 @@
         <div class="d-grid">
             <button type="submit" class="btn btn-primary" onclick="login()">Login</button>
         </div>
+        <small class="text-center">
+            <a href="{{'register'}}" class="btn btn-link">Join</a>
+        </small>
     </div>
     
 </body>
 </html>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
 

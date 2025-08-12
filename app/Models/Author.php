@@ -50,6 +50,7 @@ class Author extends Model
                 $q->where("names", 'like', '%' . $keyword . '%');
             });
         }
+        
         $query->skip($offset)->take($length);
         $query->orderBy('authorID', 'DESC');
         return $query->get();
