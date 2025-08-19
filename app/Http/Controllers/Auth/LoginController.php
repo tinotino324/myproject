@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Author;
 use App\Mail\UserRegisteredMail;
 use App\Mail\checkingMail;
 use Illuminate\Support\Facades\Mail;
@@ -17,12 +18,12 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
+        // User::factory()->count(5)->create();
         return view('auth.login');
     }
 
     public function registerForm()
     {
-        // Mail::to('tinolinjeba@gmail.com')->send(new checkingMail());
         return view('auth.register');
     }
 

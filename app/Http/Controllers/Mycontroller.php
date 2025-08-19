@@ -24,6 +24,7 @@ class Mycontroller extends Controller
     public function author()
     {
         $Model              = New Author();
+        // Author::factory()->count(5)->create();
         $authors            = $Model->getAuthors();
         $data['counts']     = !empty($authors) ? count($authors) : 0;
         return view('authors.index', $data);

@@ -51,8 +51,12 @@ class Book extends Model
 
             $query->where(function ($q) use ($keyword) {
                 $q->where("book_name", 'like', '%' . $keyword . '%')
-                  ->orWhere("author_names.names", 'like', '%' . $keyword . '%');
+                 ->orWhere("author_names.names", 'like' , '%' . $keyword . '%');
             });
+            // $query->where(function ($q) use ($keyword) {
+            //     $q->where("book_name", 'like', '%' . $keyword . '%')
+            //       ->orWhere("author_names.names", 'like', '%' . $keyword . '%');
+            // });
         }
 
         $query->skip($offset)->take($limit);
