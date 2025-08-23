@@ -1,0 +1,96 @@
+🔹 1. Required / Presence Rules
+
+required → Field must be present and not empty (0 counts as empty unless numeric/integer also applied).
+
+required_if:anotherfield,value → Required if another field has a certain value.
+
+required_unless:anotherfield,value → Required unless another field has a certain value.
+
+required_with:field1,field2 → Required if any of the listed fields are present.
+
+required_without:field1,field2 → Required if the listed fields are not present.
+
+nullable → Field can be null.
+
+🔹 2. String Rules
+
+string → Must be a string.
+
+min:3 / max:50 → Minimum/maximum length.
+
+email → Must be a valid email format.
+
+regex:/^[A-Za-z\s]+$/ → Must match regex pattern.
+
+alpha → Only letters.
+
+alpha_num → Only letters and numbers.
+
+url → Must be a valid URL.
+
+🔹 3. Numeric Rules
+
+numeric → Must be a number.
+
+integer → Must be an integer.
+
+digits:5 → Must be exactly 5 digits.
+
+digits_between:3,6 → Must be 3 to 6 digits.
+
+min:0 / max:100 → Minimum/maximum value.
+
+🔹 4. File / Image Rules
+
+file → Must be uploaded file.
+
+image → Must be image (jpg, png, gif, etc.).
+
+mimes:jpg,png,pdf → File must match given extensions.
+
+mimetypes:image/jpeg,image/png → File must match given MIME types.
+
+size:1024 → Must be exactly 1MB.
+
+max:2048 → Max 2MB file.
+
+dimensions:min_width=100,max_height=200 → Image dimensions.
+
+🔹 5. Database Rules
+
+unique:table,column → Value must be unique in DB.
+
+exists:table,column → Value must exist in DB.
+
+🔹 6. Boolean / Comparison
+
+boolean → Must be true/false, 0/1, "yes"/"no".
+
+same:otherfield → Must be same as another field.
+
+different:otherfield → Must be different.
+
+confirmed → Must match <field>_confirmation (e.g., password + password_confirmation).
+
+🔹 7. Date & Time Rules
+
+date → Must be a valid date.
+
+after:today → Must be a date after today.
+
+before:2025-01-01 → Must be a date before given date.
+
+after_or_equal:field → Must be after or equal to another field.
+
+🔹 8. Array Rules
+
+array → Must be an array.
+
+in:small,medium,large → Value must be one of the given list.
+
+not_in:admin,superuser → Value cannot be one of the list.
+
+distinct → No duplicate values in array.
+
+size:3 → Array must contain exactly 3 elements.
+php artisan storage:link

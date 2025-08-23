@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Name;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Product;
+
 use Illuminate\Support\Facades\Validator;
 
 class Mycontroller extends Controller
@@ -16,9 +18,81 @@ class Mycontroller extends Controller
         $bookModel              = New Book();
         $books                  = $bookModel->getbooks();
         $authors                = $Model->getAuthors();
+        $products               = Product::all();
         $data['author_counts']  = !empty($authors) ? count($authors) : 0;
         $data['book_counts']    = !empty($books) ? count($books) : 0;
+        $data['total_products']       = !empty($products) ? count($products) : 0;
         return view('dashboard.index', $data);
+    }
+
+    public function home()
+    {
+        return view('Frontend.index');
+    }
+
+    public function about()
+    {
+        return view('Frontend.about');
+    }
+
+    public function curtains()
+    {
+        return view('Frontend.curtains');
+    }
+    public function mosquito_net()
+    {
+        return view('Frontend.mosquito_net');
+    }
+    public function wallpaper()
+    {
+        return view('Frontend.wallpaper');
+    }
+    public function carpets()
+    {
+        return view('Frontend.carpets');
+    }
+    public function flooring()
+    {
+        return view('Frontend.flooring');
+    }
+    public function artificial_grass()
+    {
+        return view('Frontend.artificial_grass');
+    }
+    public function cloth_hanger()
+    {
+        return view('Frontend.cloth_hanger');
+    }
+    public function blinds()
+    {
+        return view('Frontend.blinds');
+    }
+    public function portfolio()
+    {
+        return view('Frontend.portfolio');
+    }
+    public function contact()
+    {
+        return view('Frontend.contact');
+    }
+
+    public function product_list()
+    {
+        $data['file_name']      = $_GET['file'];
+        $all_products           = Product::all();
+        $products               = [];
+
+        if(!empty($all_products))
+        {
+            foreach($all_products as $all_product)
+            {
+                $products[$all_product->names] = $all_product;
+            }
+        }
+
+        $data['products']   = isset($products[$data['file_name']]) ? $products[$data['file_name']] : [];
+       
+        return view('multiple.index', $data);
     }
 
     public function author()
@@ -30,6 +104,17 @@ class Mycontroller extends Controller
         $authors            = $Model->getAuthors();
         $data['counts']     = !empty($authors) ? count($authors) : 0;
         return view('authors.index', $data);
+    }
+
+    public function product()
+    {
+        // $posts = Book::with('Author')->get()->;
+        // echo "<pre>";print_r($posts);die;
+        $Model              = New Author();
+        // Author::factory()->count(5)->create();
+        $authors            = $Model->getAuthors();
+        $data['counts']     = !empty($authors) ? count($authors) : 0;
+        return view('product.index', $data);
     }
 
     public function chatbot()
@@ -112,7 +197,92 @@ class Mycontroller extends Controller
         echo json_encode($response);die;
 
     }
+    public function save_product(Request $request)
+    {
+        $response['status'] = FALSE;
+        $name               = $request->post('name');
+        $description        = $request->post('description');
 
+        $profilePath = null;
+        if ($request->hasFile('profile')) {
+            $file = $request->file('profile');
+            // Generate unique filename
+            $filename = time() . '_' . $file->getClientOriginalName();
+            // Store in storage/app/public/profiles
+            $profilePath = $file->storeAs('profiles', $filename, 'public');
+        }
+
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $file) {
+                $filename_new = time().'_'.$file->getClientOriginalName();
+                $profilePath_name = $file->storeAs('profiles', $filename_new, 'public');
+        
+                // Save $filename to DB, e.g., in a ProductImages table
+                $data_gallery[] = [
+                    'image' => $profilePath_name
+                ];
+            }
+        }
+
+        $data_json_array = !empty($data_gallery) ? json_encode($data_gallery) : NULL;
+
+        // echo "<pre>";print_r($data_gallery);die;
+        $id                 = $request->post('id');
+        $Model              = new Product();
+        $authors_names      = $Model->getproducts(['names' => $name]);
+        $authors            = [];
+
+        $validator  = Validator::make($request->all(),[
+            "name" => "required||max:20"
+        ]);
+
+        if($validator->fails())
+        {
+            $errors                 = $validator->errors();
+            // $errors->all();
+            $response['message']    = $errors->getMessages()['name'][0];
+            $response['status']     = FALSE;   
+            echo json_encode($response);die;
+        }
+        
+        if(!empty($authors_names))
+        {
+            foreach($authors_names as $authors_name)
+            {
+                $authors[]  = $authors_name;
+            }
+            
+            if(!empty($authors))
+            {
+                $response['message'] = "This Product is already exist !";
+                $response['status']  = FALSE;
+                echo json_encode($response);die;
+            }
+        }
+
+        if((int)$id)
+        {
+            $update         = $Model->updateproduct($id, ['names' => $name, 'description' => $description, "image" => $profilePath, "images" => $data_json_array]);
+        }
+        else
+        {
+            $update         = $Model->insertproduct(['names' => $name, 'description' => $description, "image" => $profilePath, "images" => $data_json_array]);
+        }
+
+        if($update)
+        {
+            $response['status']     = TRUE;
+            $response['message']    = "Product is Sucessfully Saved";
+        }
+        else
+        {
+            $response['message']    = "Failed";
+        }
+
+
+        echo json_encode($response);die;
+
+    }
     public function save_book(Request $request)
     {
         $response['status'] = FALSE;
@@ -218,6 +388,49 @@ class Mycontroller extends Controller
 
         $response['total_counts']   = count($total_authors);
         $response['listing_counts'] = count($authors);
+        $response['offset']         = $offset;
+        $response['length']         = $length;
+        echo json_encode($response);die;
+    }
+
+    public function get_products(Request $request)
+    {
+        $offset             = $request->post('offset');
+        $length             = $request->post('length');
+        $keyword            = $request->post('keyword');
+        $Model              = new Product();
+        $params['offset']   = $offset;
+        $params['length']   = $length;
+        $params['keyword']  = $keyword;
+        $products           = $Model->getproducts_listing($params);
+        $total_products     = Product::all();
+        $data               = [];
+        $book_data          = [];
+        $book_count_data    = [];
+        $book_names         = [];
+
+        if(!empty($products))
+        {
+            foreach($products as $product)
+            {
+                $product['date']         = date('d-M-Y', strtotime($product['created_at']));
+                $product['create_date']  = date('D M Y', strtotime($product['created_at']));
+                $product['update_date']  = date('D M Y', strtotime($product['updated_at']));
+                $data[]                 = $product;
+            }
+        }
+        $response['status'] = FALSE;
+
+        if(!empty($data))
+        {
+            $response['status']     = TRUE;
+            $response['authors']    = $data;
+            $response['counts']     = $book_count_data;
+
+        }
+
+        $response['total_counts']   = count($total_products);
+        $response['listing_counts'] = count($products);
         $response['offset']         = $offset;
         $response['length']         = $length;
         echo json_encode($response);die;

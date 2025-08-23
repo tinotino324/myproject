@@ -192,7 +192,7 @@
     </style>
 </head>
 <body>
-    @include('layouts.new_header')
+    @include('layouts.header')
 
     <div class="d-flex">
         @include('layouts.sidebar')

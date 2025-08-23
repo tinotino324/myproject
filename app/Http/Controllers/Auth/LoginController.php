@@ -13,6 +13,7 @@ use App\Mail\UserRegisteredMail;
 use App\Mail\checkingMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -173,6 +174,9 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        Session::flush();             // clears all session data
+        $request->session()->invalidate(); // invalidate session
+        $request->session()->regenerateToken(); // regenerate CSRF token
         $response['status'] = true;
         echo json_encode($response);
     }
