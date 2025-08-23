@@ -31,7 +31,7 @@
                     <div class="mb-3">
                         <i class="bi bi-person-lines-fill" style="font-size: 3rem; color: #0d6efd;"></i>
                     </div>
-                    <h5 class="card-title fw-bold">Total Authors</h5>
+                    <h5 class="card-title fw-bold">Total Products</h5>
                     <h2 class="text-primary display-5">{{$total_products}}</h2>
                 </div>
             </div>
