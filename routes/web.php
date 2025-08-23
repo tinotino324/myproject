@@ -18,7 +18,7 @@ Route::get('/books', [Mycontroller::class, 'books'])->middleware('auth');
 Route::get('/chatbot', [Mycontroller::class, 'chatbot'])->middleware('auth');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('/register', [LoginController::class, 'registerForm'])->name('register');
-
+Route::get('/profile_edit', [LoginController::class, 'profile_edit'])->name('profile_edit');
 Route::post('/create_user', [LoginController::class, 'create_user'])->name('create_user');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/login_check', [LoginController::class, 'login_check'])->name('login_check');
@@ -30,4 +30,5 @@ Route::post('/save_book', [Mycontroller::class, 'save_book'])->name('save_book')
 Route::post('/get_books', [Mycontroller::class, 'get_books'])->name('get_books');
 Route::post('/book_delete', [Mycontroller::class, 'book_delete'])->name('book_delete');
 Route::post('/get_answer', [Mycontroller::class, 'get_answer'])->name('get_answer');
+Route::post('/edit_profile', [LoginController::class, 'edit_profile'])->name('edit_profile');
 

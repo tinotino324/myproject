@@ -61,4 +61,9 @@ class User extends Authenticatable
         return $insert;
         // echo dd($query->toSql()); die;
     }
+
+    public function edit_profile($id, $data)
+    {
+        return self::where('id', $id)->update($data);
+    }
 }

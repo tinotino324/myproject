@@ -287,29 +287,29 @@
 
         var errorCount  = 0
 
-        if(name == '')
-        {
-            $("#book_nameDiv").addClass('has-error');
-            $("#book_name_error").text("This filed is required !");
-            errorCount++;
-        }
-        else
-        {
-            $("#book_nameDiv").removeClass('has-error');
-            $("#book_name_error").text("");
-        }
+        // if(name == '')
+        // {
+        //     $("#book_nameDiv").addClass('has-error');
+        //     $("#book_name_error").text("This filed is required !");
+        //     errorCount++;
+        // }
+        // else
+        // {
+        //     $("#book_nameDiv").removeClass('has-error');
+        //     $("#book_name_error").text("");
+        // }
 
-        if(authorID == 0)
-        {
-            $("#authorIDDiv").addClass('has-error');
-            $("#authorID_error").text("This filed is required !");
-            errorCount++;
-        }
-        else
-        {
-            $("#authorIDDiv").removeClass('has-error');
-            $("#authorID_error").text("");
-        }
+        // if(authorID == 0)
+        // {
+        //     $("#authorIDDiv").addClass('has-error');
+        //     $("#authorID_error").text("This filed is required !");
+        //     errorCount++;
+        // }
+        // else
+        // {
+        //     $("#authorIDDiv").removeClass('has-error');
+        //     $("#authorID_error").text("");
+        // }
 
         if(errorCount == 0)
         {
@@ -335,15 +335,25 @@
                     }
                     else
                     {
-                        if(result.message != '')
+                        if(result.message.name)
                         {
                             $("#book_nameDiv").addClass('has-error');
-                            $("#book_name_error").text(result.message);
+                            $("#book_name_error").text(result.message.name);
                         }
                         else
                         {
                             $("#book_nameDiv").removeClass('has-error');
                             $("#book_name_error").text("");
+                        }
+                        if(result.message.authorID)
+                        {
+                            $("#authorIDDiv").addClass('has-error');
+                            $("#authorID_error").text(result.message.authorID);
+                        }
+                        else
+                        {
+                            $("#authorIDDiv").removeClass('has-error');
+                            $("#authorID_error").text("");
                         }
                     }
                 }

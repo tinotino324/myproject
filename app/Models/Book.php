@@ -68,4 +68,9 @@ class Book extends Model
     {
         return self::destroy($id);
     }
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }

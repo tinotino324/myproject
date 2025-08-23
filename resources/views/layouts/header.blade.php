@@ -26,19 +26,22 @@
             </ul>
            <!-- Profile Initial & Dropdown -->
             <div class="ms-3 position-relative">
-                <div id="profileBtn" class="rounded-circle bg-primary text-white text-uppercase d-flex justify-content-center align-items-center" style="width: 40px; height: 40px; cursor: pointer;">
-                    {{substr(session('user_name'), 0, 1)}}
+                <div id="profileBtn" class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center" style="width: 40px; height: 40px; cursor: pointer; overflow: hidden;">
+                    <img src="{{ asset('storage/' . session('profile')) }}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
-
                 <div id="profileDropdown" class="dropdown-menu shadow p-3 mt-2" style="display: none; min-width: 200px; left: auto; right: 0; transform: translateX(-20px);">
-                    <div class="mb-3">
-                        <strong>{{ucfirst(session('user_name'))}}</strong> <span class="badge"><strong>{{ (session('usertype') == 1) ? 'Admin' : 'User' }}</strong></span>
+                    <div class="mb-3 text-center">
+                        <strong>{{ ucfirst(session('user_name')) }}</strong>
+                        <span class="badge bg-secondary ms-2">
+                            {{ (session('usertype') == 1) ? 'Admin' : 'User' }}
+                        </span>
                         <br>
-                        <small class="text-muted">{{session('user_email')}}</small>
+                        <small class="text-muted d-block">{{ session('user_email') }}</small>
+                        <a href='{{"/profile_edit"}}' class="btn btn-sm btn-outline-primary mt-2">Edit Profile</a>
                     </div>
                     <hr>
                     <!-- <a href="#" class="dropdown-item">Manage Account</a> -->
-                    <a href="#" class="dropdown-item text-danger" onclick='onLogoutClick()'>Sign Out</a>
+                    <a href="#" class="dropdown-item text-danger" onclick="onLogoutClick()">Sign Out</a>
                 </div>
             </div>
         </div>

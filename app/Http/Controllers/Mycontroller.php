@@ -23,6 +23,8 @@ class Mycontroller extends Controller
 
     public function author()
     {
+        // $posts = Book::with('Author')->get()->;
+        // echo "<pre>";print_r($posts);die;
         $Model              = New Author();
         // Author::factory()->count(5)->create();
         $authors            = $Model->getAuthors();
@@ -118,22 +120,19 @@ class Mycontroller extends Controller
         $authorID           = $request->post('authorID');
         $id                 = $request->post('id');
         $Model              = new Book();
-        $books_names        = $Model->getBooks(['book_name' => $name]);
         $books              = [];
 
-        if(!empty($books_names))
+        $Validator         = Validator::make($request->all(),[
+            'name'  => 'required|alpha|regex:/^[A-Za-z\s]+$/|unique:book_names,book_name,' . $id . ',bookID',
+            'authorID' => 'required|integer|min:1'
+        ]);
+        
+        if($Validator->fails())
         {
-            foreach($books_names as $book_name)
-            {
-                $books[]  = $book_name;
-            }
-            
-            if(!empty($books))
-            {
-                $response['message'] = "This Bool Name is already exist !";
-                $response['status']  = FALSE;
-                echo json_encode($response);die;
-            }
+            $error = $Validator->errors();
+            $response['status']             = FALSE;
+            $response['message']            = $errors->getMessages();
+            echo json_encode($response);die;
         }
 
         if((int)$id)
@@ -155,9 +154,7 @@ class Mycontroller extends Controller
             $response['message']    = "Failed";
         }
 
-
         echo json_encode($response);die;
-
     }
 
     public function get_authors(Request $request)
@@ -172,7 +169,7 @@ class Mycontroller extends Controller
         $params['length']   = $length;
         $params['keyword']  = $keyword;
         $authors            = $Model->getAuthors_listing($params);
-        $total_authors      = $Model->getAuthors();
+        $total_authors      = Author::all();
         $books              = $bookModel->getbooks();
         $data               = [];
         $book_data          = [];
@@ -232,7 +229,7 @@ class Mycontroller extends Controller
         $length             = $request->post('length');
         $keyword            = $request->post('keyword');
         $Model              = new book();
-        $total_books        = $Model->getbooks();
+        $total_books        = book::all();
         $params['offset']   = $offset;
         $params['limit']    = $length;  
         $params['keyword']  = $keyword;    

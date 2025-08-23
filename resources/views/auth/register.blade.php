@@ -16,6 +16,12 @@
             <span class="control-label text-danger" id="name_err">
         </div>
 
+        <div class='form-group col-lg-12 mb-3' id='fileDiv'>
+            <label for="profile" class="form-label">Upload Profile</label><span class="text-danger">*</span>
+            <input type="file" name="profile" id="profile" class="form-control" accept="image/*" required>
+            <span class="control-label text-danger" id="file_err"></span>
+        </div>
+
         <div class='form-group col-lg-12 mb-3' id='emailDiv'>
             <label for="email" class="form-label">Email address</label><span class="text-danger">*</span>
             <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required autofocus>
@@ -40,9 +46,13 @@
 
     function Register()
     {
-        var name        = $("#name").val().trim();
-        var email       = $("#email").val();
-        var password    = $("#password").val();
+        var formData = new FormData();
+        formData.append('name', $("#name").val());
+        formData.append('email', $("#email").val());
+        formData.append('password', $("#password").val());
+        formData.append('profile', $('#profile')[0].files[0]); // actual file
+        formData.append('_token', '<?= csrf_token() ?>');
+
         var errorCount  = 0
 
         if(errorCount == 0)
@@ -50,13 +60,10 @@
             $.ajax({
                 type: 'POST',
                 url: '<?= ('create_user') ?>',
-                data: {
-                    'name'    : name,  
-                    'password': password,
-                    'email'   : email,   
-                    _token : '<?=  csrf_token() ?>'
-                },
+                data: formData,
                 dataType: 'html',
+                contentType: false,
+                processData: false,  
                 success: function(data) 
                 {
                     var result = JSON.parse(data);
@@ -103,6 +110,16 @@
                             {
                                 $("#passwordDiv").removeClass("has-error");
                                 $("#password_err").text("");
+                            }
+                            if(result.message.profile)
+                            {
+                                $("#fileDiv").addClass("has-error");
+                                $("#file_err").text(result.message.profile);
+                            }
+                            else
+                            {
+                                $("#fileDiv").removeClass("has-error");
+                                $("#file_err").text("");
                             }
                         }
                         else

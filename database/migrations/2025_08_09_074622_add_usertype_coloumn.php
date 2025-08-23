@@ -28,5 +28,9 @@ return new class extends Migration
                 $table->dropColumn('usertype');
             });
         }
+
+        if (Schema::hasColumn('users', 'profile_image')) {
+            $table->dropColumn('profile_image');
+        }
     }
 };

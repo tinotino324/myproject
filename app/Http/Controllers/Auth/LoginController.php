@@ -18,7 +18,6 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        // User::factory()->count(5)->create();
         return view('auth.login');
     }
 
@@ -33,10 +32,12 @@ class LoginController extends Controller
         $name       = $request->post('name');
         $email      = $request->post('email');
         $password   = $request->post('password');
+        $profile    = $request->post('profile');
         $model      = New User();
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:20|string|regex:/^[A-Za-z\s]+$/|unique:users,name',
+            'profile'  => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
         ]);
@@ -49,11 +50,21 @@ class LoginController extends Controller
             echo json_encode($response);die;
         }
 
+        $profilePath = null;
+        if ($request->hasFile('profile')) {
+            $file = $request->file('profile');
+            // Generate unique filename
+            $filename = time() . '_' . $file->getClientOriginalName();
+            // Store in storage/app/public/profiles
+            $profilePath = $file->storeAs('profiles', $filename, 'public');
+        }
+
         $data = [
             'name' => $name,
             'email' => $email,
             'usertype' => 2,
             'password' => Hash::make($password), // ✅ properly hashed
+            'profile_image' => $profilePath, // ✅ properly hashed
             'created_at' => now(),
             'updated_at' => now(),
         ];
@@ -105,6 +116,7 @@ class LoginController extends Controller
                 'user_name' => $user->name,
                 'user_email'=> $user->email,
                 'usertype'  => $user->usertype,
+                'profile'   => $user->profile_image,
             ]);
         
             $response['status'] = true;
@@ -116,6 +128,46 @@ class LoginController extends Controller
         }
 
         echo json_encode($response);
+    }
+
+    public function profile_edit()
+    {
+        $data['user']  = user::find(session('user_id'));
+        return view('auth.profileEdit', $data);
+    }
+
+    function edit_profile(Request $request)
+    {
+        $name       = $request->post('name');
+        $email      = $request->post('email');
+        $profile    = $request->post('profile');
+        $password   = $request->post('password');
+        $user_id    = $request->post('user_id');
+        $model      = new user;
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|unique:user, name, ' .$user_id. ',id',
+            'email' => 'required|email|unique:user, email,' .$user_id. ',id',
+        ]);
+
+        $profilePath = null;
+
+        if($request->hasFile('profile'))
+        {
+            $file           = $request->file('profile');
+            $filename       = time() . '_' . $file->getClientOriginalName();
+            $profilePath    = $file->storeAs('profiles', $filename, 'public');
+        }
+
+        $data['profile_image']   = $profilePath;
+
+        if(!empty($data))
+        {
+            $update = $model->edit_profile($user_id, $data);
+        }
+
+        // echo "<pre>";print_r(session('profile'));die;
+
     }
 
     public function logout(Request $request)
