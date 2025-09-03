@@ -4,7 +4,7 @@
 
       <div class="logo">
 
-        <img src="assets/img/brand-elements/skdecors.png" alt="SK Associates Logo"> <!-- Replace with your logo -->
+        <img src="http://127.0.0.1:8000/storage/profiles/1755950016_Screenshot from 2025-08-20 00-35-15.png" alt="SK Associates Logo"> <!-- Replace with your logo -->
 
       </div>
 
@@ -57,7 +57,7 @@
         <li><a href="<?= ('portfolio') ?>">Portfolio</a></li>
 
         <li><a href="<?=('contact')?>">Contact Us</a></li>
-        @if(empty(session('user_id')))
+        @if(!Auth::check())
             <li><a href="<?=('login')?>">Login</a></li>
         @else
             <li><a href="{{ url('index') }}">Add Product</a></li>

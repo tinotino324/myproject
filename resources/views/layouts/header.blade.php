@@ -9,7 +9,10 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
             <ul class="navbar-nav mb-2 mb-lg-0">
-                <!-- <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('product*') ? 'active' : '' }}" href="{{ url('/product') }}">Product</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ Request::is('index') ? 'active' : '' }}" href="{{ url('/index') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
@@ -20,13 +23,14 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('chatbot*') ? 'active' : '' }}" href="{{ url('/chatbot') }}">ChatBot</a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('product*') ? 'active' : '' }}" href="{{ url('/product') }}">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('product*') ? 'active' : '' }}" href="{{ url('/home') }}">Site</a>
+                    <a class="nav-link {{ Request::is('product*') ? 'active' : '' }}" href="{{ url('/home') }}">
+                        <img src="{{ asset('img/site-logo.png') }}" alt="Site Logo" style="height:40px; width:120px;object-fit: contain;"> Site
+                    </a>
                 </li>
+                
+               
                 <!-- You can add more menu items here -->
                 {{-- Example: <li class="nav-item"><a class="nav-link" href="#">Settings</a></li> --}}
             </ul>

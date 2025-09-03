@@ -61,6 +61,7 @@ class Book extends Model
 
         $query->skip($offset)->take($limit);
         $query->orderBy('bookID', 'DESC');
+        // dd($query->toSql());
         return $query->get();
     }
 

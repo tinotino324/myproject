@@ -14,14 +14,12 @@ class Mycontroller extends Controller
 {
     public function index()
     {
-        $Model                  = New Author();
-        $bookModel              = New Book();
-        $books                  = $bookModel->getbooks();
-        $authors                = $Model->getAuthors();
-        $products               = Product::all();
-        $data['author_counts']  = !empty($authors) ? count($authors) : 0;
-        $data['book_counts']    = !empty($books) ? count($books) : 0;
-        $data['total_products']       = !empty($products) ? count($products) : 0;
+        $books                      = Book::all();
+        $authors                    = Author::all();
+        $products                   = Product::all();
+        $data['author_counts']      = !empty($authors) ? count($authors) : 0;
+        $data['book_counts']        = !empty($books) ? count($books) : 0;
+        $data['total_products']     = !empty($products) ? count($products) : 0;
         return view('dashboard.index', $data);
     }
 

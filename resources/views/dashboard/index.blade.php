@@ -14,17 +14,6 @@
     <p class="lead text-center mb-5"> Track sales, customers, and products at a glance!</p>
     <div class="row justify-content-center">
         <!-- Authors Card -->
-        <!-- <div class="col-md-5 mb-4">
-            <div class="card shadow-lg border-0 h-100 hover-effect">
-                <div class="card-body text-center">
-                    <div class="mb-3">
-                        <i class="bi bi-person-lines-fill" style="font-size: 3rem; color: #0d6efd;"></i>
-                    </div>
-                    <h5 class="card-title fw-bold">Total Authors</h5>
-                    <h2 class="text-primary display-5"><?= $author_counts ?></h2>
-                </div>
-            </div>
-        </div> -->
         <div class="col-md-5 mb-4">
             <div class="card shadow-lg border-0 h-100 hover-effect">
                 <div class="card-body text-center">
@@ -36,8 +25,21 @@
                 </div>
             </div>
         </div>
+        
+        <div class="col-md-5 mb-4">
+            <div class="card shadow-lg border-0 h-100 hover-effect">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-person-lines-fill" style="font-size: 3rem; color: #0d6efd;"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Total Authors</h5>
+                    <h2 class="text-primary display-5"><?= $author_counts ?></h2>
+                </div>
+            </div>
+        </div>
+        
         <!-- Books Card -->
-        <!-- <div class="col-md-5 mb-4">
+        <div class="col-md-5 mb-4">
             <div class="card shadow-lg border-0 h-100 hover-effect">
                 <div class="card-body text-center">
                     <div class="mb-3">
@@ -47,7 +49,7 @@
                     <h2 class="text-success display-5"><?= $book_counts ?></h2>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </div>
 

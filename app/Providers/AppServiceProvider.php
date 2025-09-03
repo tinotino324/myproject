@@ -25,5 +25,10 @@ class AppServiceProvider extends ServiceProvider
             $products = Product::all();
             $view->with('products', $products);
         });
+
+        View::composer('layouts.footer', function ($view) {
+            $products = Product::all();
+            $view->with('products', $products);
+        });
     }
 }
